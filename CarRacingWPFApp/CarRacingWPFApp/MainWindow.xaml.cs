@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace CarRacingWPFApp
 {
     /// <summary>
-    /// Interaction logic for GarageWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class GarageWindow : Window
+    public partial class MainWindow : Window
     {
-        public GarageWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }

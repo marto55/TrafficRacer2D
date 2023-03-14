@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,23 +14,23 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace CarRacingWPFApp
+namespace CarRacingWPFApp.Views
 {
     /// <summary>
-    /// Interaction logic for GameWindow.xaml
+    /// Interaction logic for GameView.xaml
     /// </summary>
-    public partial class GameWindow : Window
+    public partial class GameView : UserControl
     {
         DispatcherTimer gameTimer = new DispatcherTimer(); // create a new instance of the dispatcher time called gameTimer
         List<Rectangle> itemRemover = new List<Rectangle>(); // make a new list called item remove, this list will be used to remove any unused rectangles in the game 
-        
+
         Random rand = new Random(); // make a new instance of the random class called rand
-        
+
         ImageBrush playerImage = new ImageBrush(); // create a new image brush for the player
         ImageBrush starImage = new ImageBrush(); // create a new image brush for the star
-        
+
         Rect playerHitBox; // this rect object will be used to calculate the player hit area with other objects
-        
+
         // set the game integers including, speed for the traffic and road markings, player speed, car numbers, star counter and power mode counter
         int speed = 15;
         int playerSpeed = 10;
@@ -43,18 +42,17 @@ namespace CarRacingWPFApp
         double i;
         // we will need 4 boolean altogether for this game, since all of them will be false at the start we are defining them in one line. 
         bool moveLeft, moveRight, gameOver, powerMode;
-        public GameWindow()
+        public GameView()
         {
             InitializeComponent();
 
             myCanvas.Focus(); // set the main focus of the program to the my canvas element, with this line it wont register the keyboard events
-            
+
             gameTimer.Tick += GameLoop; // link the game timer event to the game loop event
             gameTimer.Interval = TimeSpan.FromMilliseconds(20); // this timer will run every 20 milliseconds
 
             StartGame(); // run the start game function
         }
-
         private void GameLoop(object? sender, EventArgs e)
         {
             score += .05; // increase the score by .5 each tick of the timer
@@ -157,7 +155,7 @@ namespace CarRacingWPFApp
             else
             {
                 // if the mode is false then change the player car back to default and also set the background to gray
-                playerImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\playerImage.png"));
+                playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/playerImage.png"));
                 myCanvas.Background = Brushes.Gray;
             }
             // each item we find inside of the item remove we will remove it from the canvas
@@ -231,15 +229,15 @@ namespace CarRacingWPFApp
             gameOver = false;
             powerMode = false;
 
-            
+
 
             // set score to 0
             score = 0;
             // set the score text to its default content
             scoreText.Content = "Survived: 0 Seconds";
-            // set up the player image and the star image from the images folder
-            playerImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\playerImage.png"));
-            starImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\star.png"));
+            // set up the player image and the star image from the Images folder
+            playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/playerImage.png"));
+            starImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/star.png"));
             // assign the player image to the player rectangle from the canvas
             player.Fill = playerImage;
             // set the default background colour to gray
@@ -265,11 +263,11 @@ namespace CarRacingWPFApp
             // clear any items inside of the item remover list at the start
             itemRemover.Clear();
 
-            
+
         }
         private void ChangeCars(Rectangle car)
         {
-            // we want the game to change the traffic car images as they leave the scene and come back to it again
+            // we want the game to change the traffic car Images as they leave the scene and come back to it again
             carNum = rand.Next(1, 6); // to start lets generate a random number between 1 and 6
             ImageBrush carImage = new ImageBrush(); // create a new image brush for the car image 
             // the switch statement below will see what number have generated for the car num integer and 
@@ -277,22 +275,22 @@ namespace CarRacingWPFApp
             switch (carNum)
             {
                 case 1:
-                    carImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\car1.png"));
+                    carImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/car1.png"));
                     break;
                 case 2:
-                    carImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\car2.png"));
+                    carImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/car2.png"));
                     break;
                 case 3:
-                    carImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\car3.png"));
+                    carImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/car3.png"));
                     break;
                 case 4:
-                    carImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\car4.png"));
+                    carImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/car4.png"));
                     break;
                 case 5:
-                    carImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\car5.png"));
+                    carImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/car5.png"));
                     break;
                 case 6:
-                    carImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\car6.png"));
+                    carImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/car6.png"));
                     break;
             }
             car.Fill = carImage; // assign the chosen car image to the car rectangle
@@ -314,16 +312,16 @@ namespace CarRacingWPFApp
             switch (i)
             {
                 case 1:
-                    playerImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\powermode1.png"));
+                    playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/powermode1.png"));
                     break;
                 case 2:
-                    playerImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\powermode2.png"));
+                    playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/powermode2.png"));
                     break;
                 case 3:
-                    playerImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\powermode3.png"));
+                    playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/powermode3.png"));
                     break;
                 case 4:
-                    playerImage.ImageSource = new BitmapImage(new Uri("D:\\S_tasks\\ProjectOOP\\CarRacingWPFApp\\CarRacingWPFApp\\images\\powermode4.png"));
+                    playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/powermode4.png"));
                     break;
             }
             // change the background to light coral colour
