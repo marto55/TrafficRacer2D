@@ -2,8 +2,19 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CarRacingWPFApp"
-             StartupUri="Views/GameView.xaml">
+             xmlns:views="clr-namespace:CarRacingWPFApp.Views"
+             xmlns:viewmodels="clr-namespace:CarRacingWPFApp.ViewModels"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:GarageViewModel}">
+            <views:GarageView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:GameViewModel}">
+            <views:GameView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+            <views:HomeView/>
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

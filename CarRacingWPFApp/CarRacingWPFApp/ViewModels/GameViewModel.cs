@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRacingWPFApp.ViewModels
 {
-    class GameViewModel
+    class GameViewModel : BaseViewModel
     {
     }
 }
