@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using CarRacingWPFApp.ViewModels;
 
@@ -33,6 +34,11 @@ namespace CarRacingWPFApp.Commands
             else if (parameter.ToString() == "Garage")
             {
                 viewModel.SelectedViewModel = new GarageViewModel();
+            }
+            else if (parameter.ToString() == "Start Game")
+            {
+                GameWindow gameWindow = new GameWindow();
+                gameWindow.Show();
             }
         }
     }

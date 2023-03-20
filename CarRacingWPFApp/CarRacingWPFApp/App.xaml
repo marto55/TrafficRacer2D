@@ -9,9 +9,6 @@
         <DataTemplate DataType="{x:Type viewmodels:GarageViewModel}">
             <views:GarageView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:GameViewModel}">
-            <views:GameView/>
-        </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
             <views:HomeView/>
         </DataTemplate>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarRacingWPFApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace CarRacingWPFApp.Views
         public HomeView()
         {
             InitializeComponent();
+
+            DataContext = new HomeViewModel();
         }
     }
 }

@@ -7,8 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBox HorizontalAlignment="Center" TextAlignment="Center" Margin="0,173,0,0" FontSize="50"  TextWrapping="Wrap" Text="Home" VerticalAlignment="Top" Width="608" Height="100"/>
+        <Grid.RowDefinitions>
+            
+        </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Label FontSize="50" Content="Home" HorizontalContentAlignment="Center" Width="608" Height="100"/>
+
+           
+        </StackPanel>
+        
 
     </Grid>
 </UserControl>

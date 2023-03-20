@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBox HorizontalAlignment="Center" TextAlignment="Center" Margin="0,173,0,0" FontSize="50"  TextWrapping="Wrap" Text="Here is the garage" VerticalAlignment="Top" Width="608" Height="100"/>
-
+        <Label FontSize="50" Content="Garage" HorizontalContentAlignment="Center" Width="608" Height="100"/>
     </Grid>
 </UserControl>
