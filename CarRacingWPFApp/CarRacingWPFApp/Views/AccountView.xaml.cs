@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CarRacingWPFApp.ViewModels;
 
-namespace CarRacingWPFApp
+namespace CarRacingWPFApp.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AccountView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AccountView : UserControl
     {
-        public MainWindow()
+        public AccountView()
         {
             InitializeComponent();
         }

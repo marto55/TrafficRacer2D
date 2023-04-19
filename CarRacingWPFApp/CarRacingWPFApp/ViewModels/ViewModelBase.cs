@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarRacingWPFApp.ViewModels
 {
-    class BaseViewModel : INotifyPropertyChanged
+    class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

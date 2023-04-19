@@ -1,4 +1,5 @@
 ﻿using CarRacingWPFApp.Commands;
+using CarRacingWPFApp.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +9,20 @@ using System.Windows.Input;
 
 namespace CarRacingWPFApp.ViewModels
 {
-    class MainViewModel : BaseViewModel
+    class MainViewModel : ViewModelBase
     {
-		private BaseViewModel _selectedViewModel = new HomeViewModel();
+        private readonly NavigationStore _navigationStore;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-		public BaseViewModel SelectedViewModel
-		{
-			get { return _selectedViewModel; }
-			set { 
-                _selectedViewModel = value;
-                OnPropertyChanged(nameof(SelectedViewModel));
-            }
-		}
-
-		public ICommand UpdateViewCommand { get; set; }
-
-        public MainViewModel()
+        public MainViewModel(NavigationStore navigationStore)
         {
-            UpdateViewCommand = new UpdateViewCommand(this);
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

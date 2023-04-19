@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using CarRacingWPFApp.ViewModels;
 
-namespace CarRacingWPFApp
+namespace CarRacingWPFApp.Forms
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LogInForm.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LogInForm : Window
     {
-        public MainWindow()
+        public LogInForm()
         {
             InitializeComponent();
         }

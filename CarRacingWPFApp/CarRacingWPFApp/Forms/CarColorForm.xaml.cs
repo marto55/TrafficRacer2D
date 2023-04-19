@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using CarRacingWPFApp.ViewModels;
 
-namespace CarRacingWPFApp
+namespace CarRacingWPFApp.Forms
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CarColorForm.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CarColorForm : Window
     {
-        public MainWindow()
+        public CarColorForm()
         {
             InitializeComponent();
         }

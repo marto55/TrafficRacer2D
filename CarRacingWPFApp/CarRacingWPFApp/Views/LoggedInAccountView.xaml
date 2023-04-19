@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="CarRacingWPFApp.Views.LoggedInAccountView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarRacingWPFApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+
+        <TextBlock 
+            TextWrapping="Wrap" 
+            Text="{Binding Username}"
+            FontSize="50" 
+            Margin="0,45,0,281"/>
+
+        <TextBlock 
+            TextWrapping="Wrap" 
+            Text=""
+            FontSize="30" 
+            Margin="0,147,0,179">
+            <Run Text="Highest Score: "/>
+            <Run Text="{Binding HighestScore}"/>
+        </TextBlock>
+
+        <TextBlock 
+            TextWrapping="Wrap" 
+            Text=""
+            FontSize="30" 
+            Margin="0,231,0,95">
+            <Run Text="Games played: "/>
+            <Run Text="{Binding GamesPlayed}"/>
+        </TextBlock>
+
+        <Button
+            Margin="0,0,0,365"
+            Padding="5 2"
+            HorizontalAlignment="Left"
+            Command="{Binding NavigateHomeCommand}"
+            Content="Home" 
+            Width="206" />
+        <Button
+            Margin="554,0,0,365"
+            Padding="5 2"
+            HorizontalAlignment="Left"
+            Command="{Binding LogOutCommand}"
+            Content="Log out" 
+            Width="206" />
+
+    </Grid>
+</UserControl>

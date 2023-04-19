@@ -6,7 +6,59 @@
              xmlns:local="clr-namespace:CarRacingWPFApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label FontSize="50" Content="Garage" HorizontalContentAlignment="Center" Width="608" Height="100"/>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="381*"/>
+        </Grid.RowDefinitions>
+
+
+        <Button
+            Margin="0,0,0,365"
+            Padding="5 2"
+            HorizontalAlignment="Left"
+            Command="{Binding NavigateHomeCommand}"
+            Content="Home" Width="206" 
+            Grid.RowSpan="2" />
+
+        <Button
+            Margin="496,0,0,365"
+            Padding="5 2"
+            HorizontalAlignment="Left"
+            Command="{Binding NavigateAccountCommand}"
+            Content="Account" 
+            Width="121" 
+            Grid.RowSpan="2" />
+
+        <Button 
+            Content="Settings" 
+            Margin="639,0,0,365" 
+            Command="{Binding NavigateSettingsCommand}" 
+            Grid.RowSpan="2"/>
+
+        <ContentControl 
+            Content="ContentControl" 
+            Margin="85,29,86,60" 
+            Grid.Row="1"/>
+
+        <Button 
+            Content="Confirm" 
+            Command="{Binding ConfirmCarCommand}" 
+            Margin="246,326,246,10" 
+            Grid.Row="1"/>
+        
+        <Button 
+            Content="left" 
+            Command="{Binding LeftCarCommand}" 
+            Margin="16,88,700,88" 
+            Grid.Row="1" 
+            RenderTransformOrigin="1.327,0.482"/>
+        
+        <Button 
+            Content="right"
+            Command="{Binding RightCarCommand}" 
+            Margin="700,88,16,88" 
+            Grid.Row="1"/>
+
     </Grid>
 </UserControl>

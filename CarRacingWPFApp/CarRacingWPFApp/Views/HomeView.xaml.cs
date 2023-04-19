@@ -24,8 +24,6 @@ namespace CarRacingWPFApp.Views
         public HomeView()
         {
             InitializeComponent();
-
-            DataContext = new HomeViewModel();
         }
     }
 }

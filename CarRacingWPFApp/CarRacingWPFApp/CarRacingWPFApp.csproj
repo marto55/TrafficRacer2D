@@ -27,10 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MVVMEssentials.WPF" Version="1.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Images\car1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

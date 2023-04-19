@@ -4,20 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRacingWPFApp"
+        xmlns:views="clr-namespace:CarRacingWPFApp.Views"
+        xmlns:viewmodels="clr-namespace:CarRacingWPFApp.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-
-        <ContentControl x:Name="contentControl" Content="{Binding SelectedViewModel}"/>
-
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Margin="10" Width="200" Content="Home" Command="{Binding UpdateViewCommand}" CommandParameter="Home"/>
-            <Button Margin="10" Width="200" Content="Garage" Command="{Binding UpdateViewCommand}" CommandParameter="Garage"/>
-            <Button Margin="10" Width="200" Content="Start Game" Command="{Binding UpdateViewCommand}" CommandParameter="Start Game"/>
-        </StackPanel>
-    </Grid>
+        Title="MainWindow" Height="500" Width="814">
+    <ContentControl Content="{Binding CurrentViewModel}" >
+        <ContentControl.Resources >
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
+                <views:AccountView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:GarageViewModel}">
+                <views:GarageView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LoggedInAccountViewModel}">
+                <views:LoggedInAccountView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+                <views:SettingsView/>
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>
 </Window>

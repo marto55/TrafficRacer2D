@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CarRacingWPFApp"
              xmlns:views="clr-namespace:CarRacingWPFApp.Views"
-             xmlns:viewmodels="clr-namespace:CarRacingWPFApp.ViewModels"
-             StartupUri="MainWindow.xaml">
+             xmlns:viewmodels="clr-namespace:CarRacingWPFApp.ViewModels">
     <Application.Resources>
         <DataTemplate DataType="{x:Type viewmodels:GarageViewModel}">
             <views:GarageView/>
