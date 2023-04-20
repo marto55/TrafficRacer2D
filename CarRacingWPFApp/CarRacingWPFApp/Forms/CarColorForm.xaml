@@ -5,27 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRacingWPFApp.Forms"
         mc:Ignorable="d"
-        Title="CarColorForm" Height="250" Width="250">
+        Title="CarColorForm" Height="280" Width="250">
     <Grid Margin="20">
 
 
 
         <Button Content="Button" Margin="0,154,0,10"/>
         <RadioButton 
-            Content="RadioButton" 
+            Content="Red" 
             HorizontalAlignment="Left" 
             Margin="10,22,0,0" 
             VerticalAlignment="Top"/>
         <RadioButton 
-            Content="RadioButton" 
-            HorizontalAlignment="Left" 
-            Margin="10,82,0,0" 
-            VerticalAlignment="Top"/>
-        <RadioButton 
-            Content="RadioButton" 
+            Content="Green" 
             HorizontalAlignment="Left" 
             Margin="10,52,0,0" 
             VerticalAlignment="Top"/>
+        <RadioButton 
+            Content="Blue" 
+            HorizontalAlignment="Left" 
+            Margin="10,82,0,0" 
+            VerticalAlignment="Top"/>
+        
 
     </Grid>
 </Window>

@@ -14,15 +14,14 @@
 
 
         <Button
-            Margin="0,0,0,365"
+            Margin="0,0,0,380"
             Padding="5 2"
             HorizontalAlignment="Left"
             Command="{Binding NavigateHomeCommand}"
-            Content="Home" Width="206" 
-            Grid.RowSpan="2" />
+            Content="Home" Width="206" Grid.RowSpan="2" />
 
         <Button
-            Margin="496,0,0,365"
+            Margin="496,0,0,380"
             Padding="5 2"
             HorizontalAlignment="Left"
             Command="{Binding NavigateAccountCommand}"
@@ -32,7 +31,7 @@
 
         <Button 
             Content="Settings" 
-            Margin="639,0,0,365" 
+            Margin="639,0,0,380" 
             Command="{Binding NavigateSettingsCommand}" 
             Grid.RowSpan="2"/>
 
@@ -44,20 +43,19 @@
         <Button 
             Content="Confirm" 
             Command="{Binding ConfirmCarCommand}" 
-            Margin="246,326,246,10" 
-            Grid.Row="1"/>
-        
+            Margin="246,339,246,10" Grid.Row="1"/>
+
         <Button 
             Content="left" 
             Command="{Binding LeftCarCommand}" 
-            Margin="16,88,700,88" 
+            Margin="30,88,700,88" 
             Grid.Row="1" 
             RenderTransformOrigin="1.327,0.482"/>
-        
+
         <Button 
             Content="right"
             Command="{Binding RightCarCommand}" 
-            Margin="700,88,16,88" 
+            Margin="700,88,30,88" 
             Grid.Row="1"/>
 
     </Grid>
