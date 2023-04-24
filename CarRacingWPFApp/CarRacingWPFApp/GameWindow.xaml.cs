@@ -52,11 +52,11 @@ namespace CarRacingWPFApp
             scoreText.Content = "Survived " + score.ToString("#.#") + " Seconds"; // this line will show the seconds passed in decimal numbers in the score text label
             playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height); // assign the player hit box to the player
             // below are two if statements that are checking the player can move or right in the scene. 
-            if (moveLeft == true && Canvas.GetLeft(player) > 0)
+            if (moveLeft == true && Canvas.GetLeft(player) > 12)
             {
                 Canvas.SetLeft(player, Canvas.GetLeft(player) - playerSpeed);
             }
-            if (moveRight == true && Canvas.GetLeft(player) + 90 < Application.Current.MainWindow.Width)
+            if (moveRight == true && Canvas.GetLeft(player) + 80 < this.Width)
             {
                 Canvas.SetLeft(player, Canvas.GetLeft(player) + playerSpeed);
             }
@@ -125,7 +125,7 @@ namespace CarRacingWPFApp
                         powerModeCounter = 200;
                     }
                     // if the star goes beyon 400 pixels then add it to the item remover list
-                    if (Canvas.GetTop(x) > 400)
+                    if (Canvas.GetTop(x) > 500)
                     {
                         itemRemover.Add(x);
                     }
@@ -210,7 +210,7 @@ namespace CarRacingWPFApp
         }
         private void StartGame()
         {
-            // thi sis the start game function, this function to reset all of the values back to their default state and start the game
+            // this is the start game function, this function to reset all of the values back to their default state and start the game
             speed = 8; // set speed to 8
             gameTimer.Start(); // start the timer
             // set all of the boolean to false
@@ -229,26 +229,10 @@ namespace CarRacingWPFApp
             player.Fill = playerImage;
             // set the default background colour to gray
             myCanvas.Background = Brushes.Gray;
-            // run a initial foreach loop to set up the cars and remove any star in the game
-            foreach (var x in myCanvas.Children.OfType<Rectangle>())
-            {
-                // if we find any rectangle with the car tag on it then we will
-                if ((string)x.Tag == "Car")
-                {
-                    // set a random location to their top and left position
-                    Canvas.SetTop(x, (rand.Next(100, 400) * -1));
-                    Canvas.SetLeft(x, rand.Next(0, 430));
-                    // run the change cars function
-                    ChangeCars(x);
-                }
-                // if we find a star in the beginning of the game then we will add it to the item remove list
-                if ((string)x.Tag == "star")
-                {
-                    itemRemover.Add(x);
-                }
-            }
-            // clear any items inside of the item remover list at the start
-            itemRemover.Clear();
+            
+            // remove all obstacles before the start of the game and the star if it was present at the end of the previous game
+            myCanvas.Children.OfType<Rectangle>().Where(r => (string)r.Tag == "Car").ToList().ForEach(x => { ChangeCars(x); });
+            myCanvas.Children.OfType<Rectangle>().Where(r => (string)r.Tag == "star").ToList().ForEach(x => { myCanvas.Children.Remove(x); });
         }
         private void ChangeCars(Rectangle car)
         {
