@@ -27,11 +27,11 @@ namespace CarRacingWPFApp
         ImageBrush starImage = new ImageBrush(); // create a new image brush for the star
         Rect playerHitBox; // this rect object will be used to calculate the player hit area with other objects
         // set the game integers including, speed for the traffic and road markings, player speed, car numbers, star counter and power mode counter
-        int speed = 15;
-        int playerSpeed = 10;
+        int speed = 5;
+        int playerSpeed = 5;
         int carNum;
         int starCounter = 30;
-        int powerModeCounter = 200;
+        int powerModeCounter = 400;
         // create two doubles one for score and other called i, this one will be used to animate the player car when we reach the power mode
         double score;
         double i;
@@ -42,17 +42,17 @@ namespace CarRacingWPFApp
             InitializeComponent();
             myCanvas.Focus(); // set the main focus of the program to the my canvas element, with this line it wont register the keyboard events
             gameTimer.Tick += GameLoop; // link the game timer event to the game loop event
-            gameTimer.Interval = TimeSpan.FromMilliseconds(20); // this timer will run every 20 milliseconds
+            gameTimer.Interval = TimeSpan.FromMilliseconds(10); // this timer will run every 10 milliseconds
             StartGame(); // run the start game function
         }
         private void GameLoop(object sender, EventArgs e)
         {
-            score += .05; // increase the score by .5 each tick of the timer
+            score += .016; // increase the score by .1 each tick of the timer
             starCounter -= 1; // reduce 1 from the star counter each tick
             scoreText.Content = "Survived " + score.ToString("#.#") + " Seconds"; // this line will show the seconds passed in decimal numbers in the score text label
             playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height); // assign the player hit box to the player
             // below are two if statements that are checking the player can move or right in the scene. 
-            if (moveLeft == true && Canvas.GetLeft(player) > 12)
+            if (moveLeft == true && Canvas.GetLeft(player) > 11)
             {
                 Canvas.SetLeft(player, Canvas.GetLeft(player) - playerSpeed);
             }
@@ -64,7 +64,7 @@ namespace CarRacingWPFApp
             if (starCounter < 1)
             {
                 MakeStar();
-                starCounter = rand.Next(600, 900);
+                starCounter = rand.Next(1200, 1500);
             }
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
             foreach (var x in myCanvas.Children.OfType<Rectangle>())
@@ -122,7 +122,7 @@ namespace CarRacingWPFApp
                         // set power mode to true
                         powerMode = true;
                         // set power mode counter to 200
-                        powerModeCounter = 200;
+                        powerModeCounter = 400;
                     }
                     // if the star goes beyon 400 pixels then add it to the item remover list
                     if (Canvas.GetTop(x) > 500)
@@ -159,23 +159,23 @@ namespace CarRacingWPFApp
             // as you progress in the game you will score higher and traffic speed will go up
             if (score >= 10 && score < 20)
             {
-                speed = 12;
+                speed = 6;
             }
             if (score >= 20 && score < 30)
             {
-                speed = 14;
+                speed = 7;
             }
             if (score >= 30 && score < 40)
             {
-                speed = 16;
+                speed = 8;
             }
             if (score >= 40 && score < 50)
             {
-                speed = 18;
+                speed = 9;
             }
             if (score >= 50 && score < 80)
             {
-                speed = 22;
+                speed = 10;
             }
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -211,7 +211,7 @@ namespace CarRacingWPFApp
         private void StartGame()
         {
             // this is the start game function, this function to reset all of the values back to their default state and start the game
-            speed = 8; // set speed to 8
+            speed = 5; // set speed to 5
             gameTimer.Start(); // start the timer
             // set all of the boolean to false
             moveLeft = false;

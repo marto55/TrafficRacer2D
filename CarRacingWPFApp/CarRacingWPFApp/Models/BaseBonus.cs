@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRacingWPFApp.ViewModels
+namespace CarRacingWPFApp.Models
 {
-    class GameViewModel : ViewModelBase
+    class BaseBonus
     {
     }
 }
