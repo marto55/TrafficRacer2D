@@ -11,5 +11,10 @@ namespace CarRacingWPFApp.Models
         public BasePlayerVehicle(int height, int width) : base(height, width)
         {
         }
+
+        public override void OnLoop(GameClass game)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

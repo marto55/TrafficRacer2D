@@ -11,5 +11,9 @@ namespace CarRacingWPFApp.Models
         public RoadMark(int height, int width) : base(height, width)
         {
         }
+        public override void OnLoop(GameClass game)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace CarRacingWPFApp.Models
 {
-    class BaseRectangle
+    abstract class BaseRectangle
     {
         public Rectangle HitBox { get; set; }
         protected ImageBrush Image = new ImageBrush();
@@ -20,5 +20,7 @@ namespace CarRacingWPFApp.Models
                 Width = width
             };
         }
+
+        public abstract void OnLoop(GameClass game);
     }
 }

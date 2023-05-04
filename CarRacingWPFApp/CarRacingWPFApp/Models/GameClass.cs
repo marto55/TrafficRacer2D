@@ -19,11 +19,12 @@ namespace CarRacingWPFApp.Models
     class GameClass
     {
         DispatcherTimer gameTimer = new DispatcherTimer(); // create a new instance of the dispatcher time called gameTimer
-        List<Rectangle> itemRemover = new List<Rectangle>(); // make a new list called item remove, this list will be used to remove any unused rectangles in the game 
+        public List<Rectangle> itemRemover = new List<Rectangle>(); // make a new list called item remove, this list will be used to remove any unused rectangles in the game 
+        public List<BaseRectangle> objectRemover = new List<BaseRectangle>();
         Random rand = new Random(); // make a new instance of the random class called rand
         ImageBrush playerImage = new ImageBrush(); // create a new image brush for the player
-        ImageBrush starImage = new ImageBrush(); // create a new image brush for the star
-        Rect playerHitBox; // this rect object will be used to calculate the player hit area with other objects
+        
+        public Rect playerHitBox; // this rect object will be used to calculate the player hit area with other objects
         // set the game integers including, speed for the traffic and road markings, player speed, car numbers, star counter and power mode counter
         int speed = 5;
         int playerSpeed = 5;
@@ -31,13 +32,17 @@ namespace CarRacingWPFApp.Models
         int previousLeftCoordinate = 0;
         int newLeftCoordinate;
         int starCounter = 30;
-        int powerModeCounter = 400;
+        public int powerModeCounter = 400;
         // create two doubles one for score and other called i, this one will be used to animate the player car when we reach the power mode
         double score;
         double i;
         // we will need 4 boolean altogether for this game, since all of them will be false at the start we are defining them in one line. 
-        bool moveLeft, moveRight, gameOver, powerMode;
+        public bool moveLeft, moveRight, gameOver, powerMode;
+
+
+
         GameWindow w;
+        List<BaseRectangle> objects = new List<BaseRectangle>();
         public GameClass(GameWindow window)
         {
             this.w = window;
@@ -109,30 +114,14 @@ namespace CarRacingWPFApp.Models
                         gameOver = true; // set game over boolean to true
                     }
                 } // end of car if statement
-                // if we find a rectangle with the star tag on it
-                if ((string)x.Tag == "star")
-                {
-                    // move it down the screen 3 pixels at a time
-                    Canvas.SetTop(x, Canvas.GetTop(x) + 3);
-                    // create a new rect with for the star and pass in the star X values inside of it
-                    Rect starHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-                    // if the player and the star collide then
-                    if (playerHitBox.IntersectsWith(starHitBox))
-                    {
-                        // add the star to the item remover list
-                        itemRemover.Add(x);
-                        // set power mode to true
-                        powerMode = true;
-                        // set power mode counter to 200
-                        powerModeCounter = 400;
-                    }
-                    // if the star goes beyon 400 pixels then add it to the item remover list
-                    if (Canvas.GetTop(x) > 500)
-                    {
-                        itemRemover.Add(x);
-                    }
-                } // end of start if statement
+
             } // end of for each loop
+
+            foreach (var x in objects)
+            {
+                x.OnLoop(this);
+            }
+
             // if the power mode is true
             if (powerMode == true)
             {
@@ -156,6 +145,10 @@ namespace CarRacingWPFApp.Models
             foreach (Rectangle y in itemRemover)
             {
                 w.myCanvas.Children.Remove(y);
+            }
+            foreach (BaseRectangle y in objectRemover)
+            {
+                objects.Remove(y);
             }
             // below are the score and speed configurations for the game
             // as you progress in the game you will score higher and traffic speed will go up
@@ -231,7 +224,6 @@ namespace CarRacingWPFApp.Models
             w.scoreText.Content = "Survived: 0 Seconds";
             // set up the player image and the star image from the images folder
             playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerImage.png"));
-            starImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/star.png"));
             // assign the player image to the player rectangle from the canvas
             w.player.Fill = playerImage;
             // set the default background colour to gray
@@ -239,7 +231,7 @@ namespace CarRacingWPFApp.Models
 
             // remove all obstacles before the start of the game and the star if it was present at the end of the previous game
             w.myCanvas.Children.OfType<Rectangle>().Where(r => (string)r.Tag == "Car").ToList().ForEach(x => { ChangeCars(x); });
-            w.myCanvas.Children.OfType<Rectangle>().Where(r => (string)r.Tag == "star" ).ToList().ForEach(x => { w.myCanvas.Children.Remove(x); });
+            w.myCanvas.Children.OfType<Rectangle>().Where(r => (string)r.Tag == "star").ToList().ForEach(x => { w.myCanvas.Children.Remove(x); });
         }
 
         private void ChangeCars(Rectangle car)
@@ -313,20 +305,16 @@ namespace CarRacingWPFApp.Models
 
         private void MakeStar()
         { // this is the make star function
-            // this function will create a rectangle, assign the star image to and place it on the canvas
-            // creating a new star rectangle with its own properties inside of it
-            Rectangle newStar = new Rectangle
-            {
-                Height = 50,
-                Width = 50,
-                Tag = "star",
-                Fill = starImage
-            };
+          // this function will create a rectangle, assign the star image to and place it on the canvas
+          // creating a new star rectangle with its own properties inside of it
+
 
             BonusInvulnerable newStar2 = new BonusInvulnerable();
             // set a random left and top position for the star
             Canvas.SetLeft(newStar2.HitBox, rand.Next(0, 430));
             Canvas.SetTop(newStar2.HitBox, (rand.Next(100, 400) * -1));
+
+            objects.Add(newStar2);
             // finally add the new star to the canvas to be animated and to interact with the player
             w.myCanvas.Children.Add(newStar2.HitBox);
         }
