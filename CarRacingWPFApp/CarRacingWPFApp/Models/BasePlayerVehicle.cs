@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CarRacingWPFApp.Models
 {
-    class BaseVehicle
+    class BasePlayerVehicle : BaseRectangle
     {
+        public BasePlayerVehicle(int height, int width) : base(height, width)
+        {
+        }
     }
 }

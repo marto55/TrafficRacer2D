@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Traffic Racer" Height="517" Width="525">
     <Canvas Background="Gray" Name="myCanvas" Focusable="True" KeyDown="OnKeyDown" KeyUp="OnKeyUP">
-        <Rectangle Height="106" Width="20" Fill="White" Tag="roadMarks" Canvas.Left="237" Canvas.Top="-152" />
-        <Rectangle Height="106" Width="20" Fill="White" Tag="roadMarks" Canvas.Left="237" Canvas.Top="10" />
-        <Rectangle Height="106" Width="20" Fill="White" Tag="roadMarks" Canvas.Left="237" Canvas.Top="176" />
-        <Rectangle Height="106" Width="20" Fill="White" Tag="roadMarks" Canvas.Left="237" Canvas.Top="348" />
+        <Rectangle Height="106" Width="20" Fill="White" Tag="roadMarks" x:Name="roadMark1" Canvas.Left="237" Canvas.Top="-152" />
+        <Rectangle Height="106" Width="20" Fill="White" Tag="roadMarks" x:Name="roadMark2" Canvas.Left="237" Canvas.Top="10" />
+        <Rectangle Height="106" Width="20" Fill="White" Tag="roadMarks" x:Name="roadMark3" Canvas.Left="237" Canvas.Top="176" />
+        <Rectangle Height="106" Width="20" Fill="White" Tag="roadMarks" x:Name="roadMark4" Canvas.Left="237" Canvas.Top="348" />
         <Rectangle Tag="Car" Height="80" Width="55" Fill="Blue" Canvas.Left="90" Canvas.Top="56" />
         <Rectangle Tag="Car" Height="80" Width="55" Fill="Purple" Canvas.Left="381" Canvas.Top="286" />
         <Rectangle Name="player" Height="80" Width="55" Fill="Yellow" Canvas.Left="222" Canvas.Top="374" />

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CarRacingWPFApp.Models
 {
-    class ObstacklePond
+    class ObstacklePond : BaseObstacle
     {
+        public ObstacklePond(int height, int width) : base(height, width)
+        {
+        }
     }
 }

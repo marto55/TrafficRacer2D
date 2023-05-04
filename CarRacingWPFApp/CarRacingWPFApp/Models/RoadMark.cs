@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarRacingWPFApp.Models
 {
-    class Car : BasePlayerVehicle
+    class RoadMark : BaseRectangle
     {
-        public Car(int height, int width) : base(height, width)
+        public RoadMark(int height, int width) : base(height, width)
         {
         }
     }

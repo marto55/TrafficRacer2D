@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CarRacingWPFApp.Models
 {
-    class BonusSlowTime
+    class BonusSlowTime : BaseBonus
     {
+        public BonusSlowTime(int height, int width, int duration, int coolDownTime) 
+            : base(height, width, duration, coolDownTime)
+        {
+        }
     }
 }
