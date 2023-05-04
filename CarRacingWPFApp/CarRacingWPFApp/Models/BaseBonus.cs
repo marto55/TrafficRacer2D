@@ -10,13 +10,11 @@ namespace CarRacingWPFApp.Models
 {
     class BaseBonus : BaseRectangle
     {
-        public int Duration { get; set; }
-        public int CoolDownTime { get; set; }
+        public int Duration { get; }
         
-        public BaseBonus(int height, int width, int duration, int coolDownTime) : base(height, width)
+        public BaseBonus() : base(50, 50)
         {
-            Duration = duration;
-            CoolDownTime = coolDownTime;
+            Duration = 400;
         }
     }
 }

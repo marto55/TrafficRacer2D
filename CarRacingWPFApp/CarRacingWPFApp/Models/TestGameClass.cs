@@ -16,7 +16,7 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CarRacingWPFApp.Models
 {
-    class GameClass
+    class TestGameClass
     {
         DispatcherTimer gameTimer = new DispatcherTimer(); // create a new instance of the dispatcher time called gameTimer
         List<Rectangle> itemRemover = new List<Rectangle>(); // make a new list called item remove, this list will be used to remove any unused rectangles in the game 
@@ -37,8 +37,12 @@ namespace CarRacingWPFApp.Models
         double i;
         // we will need 4 boolean altogether for this game, since all of them will be false at the start we are defining them in one line. 
         bool moveLeft, moveRight, gameOver, powerMode;
+
+
+
         GameWindow w;
-        public GameClass(GameWindow window)
+        List<BaseRectangle> objects = new List<BaseRectangle>();
+        public TestGameClass(GameWindow window)
         {
             this.w = window;
             w.myCanvas.Focus(); // set the main focus of the program to the my canvas element, with this line it wont register the keyboard events
@@ -109,30 +113,36 @@ namespace CarRacingWPFApp.Models
                         gameOver = true; // set game over boolean to true
                     }
                 } // end of car if statement
-                // if we find a rectangle with the star tag on it
-                if ((string)x.Tag == "star")
+                
+            } // end of for each loop
+
+            foreach (var x in objects)
+            {
+                if (x is BonusInvulnerable)
                 {
+                    
                     // move it down the screen 3 pixels at a time
-                    Canvas.SetTop(x, Canvas.GetTop(x) + 3);
+                    Canvas.SetTop(x.HitBox, Canvas.GetTop(x.HitBox) + 3);
                     // create a new rect with for the star and pass in the star X values inside of it
-                    Rect starHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                    Rect starHitBox = new Rect(Canvas.GetLeft(x.HitBox), Canvas.GetTop(x.HitBox), x.HitBox.Width, x.HitBox.Height);
                     // if the player and the star collide then
                     if (playerHitBox.IntersectsWith(starHitBox))
                     {
                         // add the star to the item remover list
-                        itemRemover.Add(x);
+                        itemRemover.Add(x.HitBox);
                         // set power mode to true
                         powerMode = true;
                         // set power mode counter to 200
-                        powerModeCounter = 400;
+                        powerModeCounter = 300;
                     }
                     // if the star goes beyon 400 pixels then add it to the item remover list
-                    if (Canvas.GetTop(x) > 500)
+                    if (Canvas.GetTop(x.HitBox) > 500)
                     {
-                        itemRemover.Add(x);
+                        itemRemover.Add(x.HitBox);
                     }
                 } // end of start if statement
-            } // end of for each loop
+            }
+
             // if the power mode is true
             if (powerMode == true)
             {
@@ -315,18 +325,14 @@ namespace CarRacingWPFApp.Models
         { // this is the make star function
             // this function will create a rectangle, assign the star image to and place it on the canvas
             // creating a new star rectangle with its own properties inside of it
-            Rectangle newStar = new Rectangle
-            {
-                Height = 50,
-                Width = 50,
-                Tag = "star",
-                Fill = starImage
-            };
+            
 
             BonusInvulnerable newStar2 = new BonusInvulnerable();
             // set a random left and top position for the star
             Canvas.SetLeft(newStar2.HitBox, rand.Next(0, 430));
             Canvas.SetTop(newStar2.HitBox, (rand.Next(100, 400) * -1));
+
+            objects.Add(newStar2);
             // finally add the new star to the canvas to be animated and to interact with the player
             w.myCanvas.Children.Add(newStar2.HitBox);
         }

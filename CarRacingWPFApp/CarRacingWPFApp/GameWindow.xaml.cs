@@ -20,11 +20,11 @@ namespace CarRacingWPFApp
     /// </summary>
     public partial class GameWindow : Window
     {
-        GameClass game;
+        TestGameClass game;
         public GameWindow()
         {
             InitializeComponent();
-            game = new GameClass(this);
+            game = new TestGameClass(this);
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
         {

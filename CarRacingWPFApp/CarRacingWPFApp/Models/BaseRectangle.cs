@@ -10,17 +10,15 @@ namespace CarRacingWPFApp.Models
 {
     class BaseRectangle
     {
-        Rectangle HitBox { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
+        public Rectangle HitBox { get; set; }
         protected ImageBrush Image = new ImageBrush();
-
         public BaseRectangle(int height, int width)
         {
-            Height = height;
-            Width = width;
-            HitBox.Width = width;
-            HitBox.Height = height;
+            HitBox = new Rectangle
+            {
+                Height = height,
+                Width = width
+            };
         }
     }
 }

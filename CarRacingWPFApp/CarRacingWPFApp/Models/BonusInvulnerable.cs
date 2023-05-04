@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace CarRacingWPFApp.Models
 {
     class BonusInvulnerable : BaseBonus
     {
-        public BonusInvulnerable(int height, int width, int duration, int coolDownTime) 
-            : base(height, width, duration, coolDownTime)
+        public BonusInvulnerable() : base()
         {
-            this.Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/star.png"));
+            ImageBrush starImage = new ImageBrush();
+            starImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/star.png"));
+            HitBox.Fill = starImage;
         }
     }
 }
