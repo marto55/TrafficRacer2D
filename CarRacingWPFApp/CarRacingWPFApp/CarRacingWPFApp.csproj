@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\blueStar.png" />
     <None Remove="Images\car1.png" />
     <None Remove="Images\car2.png" />
     <None Remove="Images\car3.png" />
@@ -23,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\blueStar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\car1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

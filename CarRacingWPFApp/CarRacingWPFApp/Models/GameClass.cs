@@ -22,27 +22,28 @@ namespace CarRacingWPFApp.Models
         public List<Rectangle> itemRemover = new List<Rectangle>(); // make a new list called item remove, this list will be used to remove any unused rectangles in the game 
         public List<BaseRectangle> objectRemover = new List<BaseRectangle>();
         Random rand = new Random(); // make a new instance of the random class called rand
-        ImageBrush playerImage = new ImageBrush(); // create a new image brush for the player
+        public ImageBrush playerImage = new ImageBrush(); // create a new image brush for the player
         
         public Rect playerHitBox; // this rect object will be used to calculate the player hit area with other objects
         // set the game integers including, speed for the traffic and road markings, player speed, car numbers, star counter and power mode counter
-        int speed = 5;
-        int playerSpeed = 5;
-        int carNum;
-        int previousLeftCoordinate = 0;
-        int newLeftCoordinate;
+        public int speed = 5;
+        public int playerSpeed = 5;
+        public int carNum;
+        public int previousLeftCoordinate = 0;
+        public int newLeftCoordinate;
         int starCounter = 30;
         public int powerModeCounter = 400;
         // create two doubles one for score and other called i, this one will be used to animate the player car when we reach the power mode
         double score;
         double i;
         // we will need 4 boolean altogether for this game, since all of them will be false at the start we are defining them in one line. 
-        public bool moveLeft, moveRight, gameOver, powerMode;
+        public bool moveLeft, moveRight, gameOver, invulnerable;
+        public BaseBonus? currentBonus;
 
 
 
-        GameWindow w;
-        List<BaseRectangle> objects = new List<BaseRectangle>();
+        public GameWindow w;
+        public List<BaseRectangle> objects = new List<BaseRectangle>();
         public GameClass(GameWindow window)
         {
             this.w = window;
@@ -70,7 +71,7 @@ namespace CarRacingWPFApp.Models
             // if the star counter integer goes below 1 then we run the make star function and also generate a random number inside of the star counter integer
             if (starCounter < 1)
             {
-                MakeStar();
+                MakeBonus();
                 starCounter = rand.Next(1200, 1500);
             }
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
@@ -100,12 +101,12 @@ namespace CarRacingWPFApp.Models
                     // create a new rect called car hit box and assign it to the x which is the cars rectangle
                     Rect carHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
                     // if the player hit box and the car hit box collide and the power mode is ON
-                    if (playerHitBox.IntersectsWith(carHitBox) && powerMode == true)
+                    if (playerHitBox.IntersectsWith(carHitBox) && invulnerable == true)
                     {
                         // run the change cars function with the cars rectangle X inside of it
                         ChangeCars(x);
                     }
-                    else if (playerHitBox.IntersectsWith(carHitBox) && powerMode == false)
+                    else if (playerHitBox.IntersectsWith(carHitBox) && invulnerable == false)
                     {
                         // if the power is OFF and car and the player collide then
 
@@ -117,30 +118,16 @@ namespace CarRacingWPFApp.Models
 
             } // end of for each loop
 
+            // below are the score and speed configurations for the game
+            // as you progress in the game you will score higher and traffic speed will go up
+            speed = 5 + (int)score / 10;
+
             foreach (var x in objects)
             {
                 x.OnLoop(this);
             }
 
-            // if the power mode is true
-            if (powerMode == true)
-            {
-                powerModeCounter -= 1; // reduce 1 from the power mode counter 
-                // run the power up function
-                PowerUp();
-                // if the power mode counter goes below 1 
-                if (powerModeCounter < 1)
-                {
-                    // set power mode to false
-                    powerMode = false;
-                }
-            }
-            else
-            {
-                // if the mode is false then change the player car back to default and also set the background to gray
-                playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerImage.png"));
-                w.myCanvas.Background = Brushes.Gray;
-            }
+            
             // each item we find inside of the item remove we will remove it from the canvas
             foreach (Rectangle y in itemRemover)
             {
@@ -150,28 +137,7 @@ namespace CarRacingWPFApp.Models
             {
                 objects.Remove(y);
             }
-            // below are the score and speed configurations for the game
-            // as you progress in the game you will score higher and traffic speed will go up
-            if (score >= 10 && score < 20)
-            {
-                speed = 6;
-            }
-            if (score >= 20 && score < 30)
-            {
-                speed = 7;
-            }
-            if (score >= 30 && score < 40)
-            {
-                speed = 8;
-            }
-            if (score >= 40 && score < 50)
-            {
-                speed = 9;
-            }
-            if (score >= 50 && score < 80)
-            {
-                speed = 10;
-            }
+            
         }
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
@@ -208,6 +174,7 @@ namespace CarRacingWPFApp.Models
         {
             // this is the start game function, this function to reset all of the values back to their default state and start the game
             speed = 5; // set speed to 5
+            starCounter = 30;
             gameTimer.Start(); // start the timer
             Canvas.SetTop(w.roadMark1, -152);
             Canvas.SetTop(w.roadMark2, 10);
@@ -217,7 +184,7 @@ namespace CarRacingWPFApp.Models
             moveLeft = false;
             moveRight = false;
             gameOver = false;
-            powerMode = false;
+            invulnerable = false;
             // set score to 0
             score = 0;
             // set the score text to its default content
@@ -231,7 +198,8 @@ namespace CarRacingWPFApp.Models
 
             // remove all obstacles before the start of the game and the star if it was present at the end of the previous game
             w.myCanvas.Children.OfType<Rectangle>().Where(r => (string)r.Tag == "Car").ToList().ForEach(x => { ChangeCars(x); });
-            w.myCanvas.Children.OfType<Rectangle>().Where(r => (string)r.Tag == "star").ToList().ForEach(x => { w.myCanvas.Children.Remove(x); });
+            objects.Where(r => r is BaseBonus).ToList().ForEach(x => { w.myCanvas.Children.Remove(x.HitBox); });
+            objects.Clear();
         }
 
         private void ChangeCars(Rectangle car)
@@ -273,50 +241,11 @@ namespace CarRacingWPFApp.Models
             Canvas.SetLeft(car, newLeftCoordinate);
             previousLeftCoordinate = newLeftCoordinate;
         }
-
-        private void PowerUp()
-        {
-            // this is the power up function, this function will run when the player collects the star in the game
-            i += 0.25; // increase i by .25
-            // if i is greater than 4 then reset i back to 1
-            if (i > 4.78)
-            {
-                i = 1;
-            }
-            // with each increment of the i we will change the player image to one of the 4 images below
-            switch (i)
-            {
-                case 1:
-                    playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/powermode1.png"));
-                    break;
-                case 2:
-                    playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/powermode2.png"));
-                    break;
-                case 3:
-                    playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/powermode3.png"));
-                    break;
-                case 4:
-                    playerImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/powermode4.png"));
-                    break;
-            }
-            // change the background to light coral colour
-            w.myCanvas.Background = Brushes.LightCoral;
-        }
-
-        private void MakeStar()
-        { // this is the make star function
-          // this function will create a rectangle, assign the star image to and place it on the canvas
-          // creating a new star rectangle with its own properties inside of it
-
-
-            BonusInvulnerable newStar2 = new BonusInvulnerable();
-            // set a random left and top position for the star
-            Canvas.SetLeft(newStar2.HitBox, rand.Next(0, 430));
-            Canvas.SetTop(newStar2.HitBox, (rand.Next(100, 400) * -1));
-
-            objects.Add(newStar2);
-            // finally add the new star to the canvas to be animated and to interact with the player
-            w.myCanvas.Children.Add(newStar2.HitBox);
+        private void MakeBonus()
+        {   
+            int j = rand.Next();
+            if (j%2 == 0){ BonusInvulnerable newStar = new BonusInvulnerable(this); }
+            else { BonusSlowTime newStar = new BonusSlowTime(this); }
         }
     }
 }

@@ -21,6 +21,6 @@ namespace CarRacingWPFApp.Models
             };
         }
 
-        public abstract void OnLoop(GameClass game);
+        public virtual void OnLoop(GameClass game){}
     }
 }
